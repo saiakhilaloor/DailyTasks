@@ -6,9 +6,17 @@
 package dailytasks;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -48,7 +56,7 @@ public class LoginPage {
         pass.setFont(new Font("Bodoni",Font.BOLD,25));
         frame.add(pass);
         
-        JTextField text1 = new JTextField();
+        JPasswordField text1 = new JPasswordField();
         text1.setColumns(50);
         text1.setSize(200,30);
         text1.setLocation(600, 335);
@@ -59,6 +67,45 @@ public class LoginPage {
         b1.setSize(150,40);
         b1.setLocation(550, 420);
         frame.add(b1);
+        
+        b1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/dailytasks", "root", "console.log()");
+                    Statement st = con.createStatement();
+                    ResultSet rs;
+                    String query;
+                    String uname,passwd;
+                    uname = text.getText();
+                    passwd = "";
+                    char[] pwdtemp = (char[])text1.getPassword();
+                    for(int i=0;i<pwdtemp.length;++i) {
+                        passwd += pwdtemp[i];
+                    }
+                    query = "select * from user_info where username = '"+uname+"'";
+                    rs = st.executeQuery(query);
+                    if(rs.next()){
+                        String pass = rs.getString(3);
+                        if(pass.equals(passwd)){
+                            JOptionPane.showMessageDialog(null, "Login Successful.");
+                            frame.setVisible(false);
+                            Homepage h = new Homepage(uname);
+                            h.run();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Wrong Password");
+                            text1.setText("");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Invalid ID.");
+                        text.setText("");
+                        text1.setText("");
+                    }
+                } catch(Exception ex){
+                    System.out.println(ex);
+                }
+            }
+        });
         
         frame.setVisible(true);
     }

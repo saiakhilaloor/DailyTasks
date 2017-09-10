@@ -6,10 +6,14 @@
 package dailytasks;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.sql.*;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -29,17 +33,17 @@ public class Signup {
         title.setFont(new Font("Bodoni",Font.BOLD,40));
         frame.add(title);   
         
-        JLabel email = new JLabel("Email-Id    :");
-        email.setLocation(400, 113);
-        email.setSize(600,200);
-        email.setFont(new Font("Bodoni",Font.BOLD,25));
-        frame.add(email);
+        JLabel fullname = new JLabel("Full Name :");
+        fullname.setLocation(400, 113);
+        fullname.setSize(600,200);
+        fullname.setFont(new Font("Bodoni",Font.BOLD,25));
+        frame.add(fullname);
         
         JTextField text2 = new JTextField();
         text2.setColumns(50);
         text2.setSize(200,30);
         text2.setLocation(600, 200);
-        text2.setToolTipText("Enter email id");
+        text2.setToolTipText("Enter your name");
         frame.add(text2);
         
         JLabel name = new JLabel("Username :");
@@ -61,11 +65,11 @@ public class Signup {
         pass.setFont(new Font("Bodoni",Font.BOLD,25));
         frame.add(pass);
         
-        JTextField text1 = new JTextField();
+        JPasswordField text1 =  new JPasswordField();
         text1.setColumns(50);
         text1.setSize(200,30);
         text1.setLocation(600, 335);
-        text1.setToolTipText("Enter Password");
+        text1.setToolTipText("Enter password");
         frame.add(text1);
         
         JLabel mob = new JLabel("Phone No :");
@@ -85,6 +89,38 @@ public class Signup {
         b1.setSize(150,40);
         b1.setLocation(550, 470);
         frame.add(b1);
+        
+        b1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/dailytasks", "root", "console.log()");
+                    Statement st = con.createStatement();
+                    ResultSet rs;
+                    String query;
+                    String name,uname,passwd,mobile;
+                    name = text2.getText();
+                    uname = text.getText();
+                    passwd = "";
+                    mobile = text3.getText();
+                    char[] pwdtemp = (char[])text1.getPassword();
+                    for(int i=0;i<pwdtemp.length;++i) {
+                        passwd += pwdtemp[i];
+                    }
+                    query = "Insert into user_info values('"+name+"','"+uname+"','"+passwd+"','"+mobile+"')";  
+                    st.execute(query);
+                    
+                  
+                } catch (Exception ex){
+                    System.out.println(ex);
+                }
+                LoginPage lo = new LoginPage();
+                lo.run();
+                frame.setVisible(false);
+            }
+            
+        });
         
         frame.setVisible(true);
     }
