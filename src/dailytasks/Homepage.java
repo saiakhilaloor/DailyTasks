@@ -43,6 +43,16 @@ public class Homepage {
         b1.setLocation(1100,30);
         frame.add(b1);
         
+        JButton b2 = new JButton("View Profile");
+        b2.setSize(300,50);
+        b2.setLocation(450,180);
+        frame.add(b2);
+        
+        JButton b3 = new JButton("Manage Tasks");
+        b3.setSize(300,50);
+        b3.setLocation(450,250);
+        frame.add(b3);
+        
         b1.addActionListener(new ActionListener(){
 
             @Override
