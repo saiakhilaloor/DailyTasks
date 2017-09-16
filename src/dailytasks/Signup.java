@@ -95,7 +95,7 @@ public class Signup {
             public void actionPerformed(ActionEvent e) {
                 try{
                     Class.forName("com.mysql.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/dailytasks", "root", "console.log()");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/dailytasks", "root", "");
                     Statement st = con.createStatement();
                     ResultSet rs;
                     String query;
