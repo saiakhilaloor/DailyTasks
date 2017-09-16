@@ -8,6 +8,7 @@ package dailytasks;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -60,6 +61,17 @@ public class Homepage {
                 JOptionPane.showMessageDialog(null, "Logged Out Successfully");
                 Login l = new Login();
                 l.run();
+                frame.setVisible(false);
+            }
+        });
+        
+        b3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Managetasks m =  new Managetasks(user);
+                
+                m.run();
+                
                 frame.setVisible(false);
             }
         });

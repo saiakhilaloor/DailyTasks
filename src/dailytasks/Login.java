@@ -8,6 +8,9 @@ package dailytasks;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 /**
  *
@@ -15,6 +18,7 @@ import javax.swing.*;
  */
 public class Login {
     void run(){
+        
         JFrame frame = new JFrame("DailyTasks");
         frame.setSize(1300, 670);
         frame.setLayout(null);
