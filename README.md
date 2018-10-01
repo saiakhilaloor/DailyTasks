@@ -1,7 +1,7 @@
 # DailyTasks
 
 
-DailyTaks is a java application which works as a To-do list. You can add tasks and manage tasks with this application
+DailyTaks is a java application which works as a To-do list. You can add tasks and manage your tasks with this application
 
 
 # Database Schema
